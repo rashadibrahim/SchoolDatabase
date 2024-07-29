@@ -1,0 +1,105 @@
+-- First Create a Database Called School, Then Execute the Following Query
+
+use School
+--create Type CharType from varchar(25);
+Create table Students (
+	Student_ID int Primary Key Identity Not Null,
+	First_Name CharType,
+	Last_Name CharType,
+	Gender char(6),
+	DoB Date,
+	GPA float,
+	Constraint GPALimits Check(GPA Between 0 and 4)
+);
+--Check Students Numbers On Inserts
+create table Parent_Numbers(
+	Phone_Number int Not Null
+);
+
+Create table Levels (
+	Level_ID int Primary Key Not Null,
+	Level_Name CharType
+);
+
+Create table Class (
+	Class_ID int Primary Key Not Null,
+	Class_Name CharType,
+	Capacity int,
+	Class_Location varchar(50),
+	Constraint CapacityCheck Check(Capacity <= 40)
+);
+
+Create table Subjects (
+	Subject_ID int Primary Key Not Null,
+	Sublect_Name CharType,
+	Subject_Points int Default 100,
+	Semester int
+);
+-- Takes --> Studies
+Create table Studies (
+	Subject_Year int,
+	Subject_Semester int,
+	Grade int
+);
+
+Create table Employee (
+	Employee_ID int Primary Key Identity Not Null,
+	SSN varchar(14) unique,
+	First_Name CharType,
+	Last_Name CharType
+);
+
+Create table Teacher (
+	Contract_ID int unique,
+	Salary int
+);
+
+Create table Worker (
+	Hourly_Wage int,
+	Hours_Worked int,
+	Salary int
+
+);
+
+Create table Parking (
+	Car_Number int Not Null
+);
+
+Alter table Students
+	Add Level_ID int Foreign Key References Levels On Update Cascade On Delete No Action;
+
+Alter table Subjects
+	Add Level_ID int Foreign Key References Levels On Update Cascade On Delete Set Null;
+
+Alter table Studies
+	Add Student_ID int Not Null Foreign Key References Students On Delete Cascade;
+
+Alter table Studies
+	Add Subject_ID int Not Null Foreign Key References Subjects On Update Cascade On Delete No Action;		
+
+Alter table Studies
+	Add Constraint PkCons Primary Key(Student_ID, Subject_ID);	
+
+Alter table Parent_Numbers 
+	Add Student_ID int Not Null Foreign Key References Students On Delete Cascade;
+
+Alter table Parent_Numbers
+	Add Constraint MainKey Primary Key(Student_ID, Phone_Number);
+
+Alter table Class
+	Add Level_ID int Foreign Key References Levels On Update Cascade On Delete Set Null;
+
+Alter table Teacher
+	Add Teacher_ID int Primary Key Foreign Key References Employee On Delete Cascade;
+	
+Alter table Teacher
+	Add Subject_ID int Foreign Key References Subjects On Update Cascade On Delete Set Null;
+		
+Alter table Worker
+	Add Worker_ID int Primary Key Foreign Key References Employee On Delete Cascade;
+
+Alter table Parking
+	Add Employee_ID int Not Null Foreign Key References Employee On Delete Cascade;
+
+Alter table Parking
+	Add Constraint Pk_Cons Primary Key(Employee_ID, Car_Number);

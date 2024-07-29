@@ -1,0 +1,237 @@
+create view highGPA as
+	select Level_ID, MAX(GPA) as highestGPA
+	from Students
+	group by Level_ID;
+
+
+create procedure highestGPA --Show Students with Highest GPA in Each Level
+as
+Begin
+	select s.Student_ID, s.First_Name, s.Last_Name, s.Level_ID, h.highestGPA
+	from Students s, highGPA h
+	where s.Level_ID = h.Level_ID and s.GPA = h.highestGPA
+End;
+
+--exec highestGPA
+
+
+create procedure ShowResult --Who Passed And Who Didn't
+@LevelID int
+as
+begin
+	If (@LevelID = 0)
+		Begin
+			select  Student_ID, First_Name, Last_Name, Level_ID, GPA,
+			Case
+			when GPA >= 2.3 then 'PASS'
+			Else 'FAIL'
+			End as Result
+			from Students
+			End
+	Else
+		Begin
+			select Student_ID, First_Name, Last_Name, Level_ID, GPA,
+			Case
+			when GPA >= 2.3 then 'PASS'
+			Else 'FAIL'
+			End as Result
+			from Students
+			where Level_ID = @LevelID
+			End
+End;
+
+--exec ShowResult @LevelID = 0
+
+
+Create Function GetStudentResult(@StudentID int) --info about a student
+	Returns table
+	as
+	Return (
+	select s1.Subject_ID, s2.Level_ID, s2.Sublect_Name, s1.Grade, s2.Subject_Points, s2.Semester from Studies s1, Subjects s2
+	where Student_ID = @StudentID and s1.Subject_ID = s2.Subject_ID
+	);
+
+
+--select * from GetStudentResult(28)
+
+
+create view RecentGPA as
+	select Student_ID, Cast(sum(Grade)/400.0 as float) as GPA 
+	from Studies
+	group by Student_ID;
+
+
+
+create procedure UpdateGPA 
+as
+begin
+	update Students 
+	set Students.GPA = R.GPA
+	from Students S inner join RecentGPA R on S.Student_ID = R.Student_ID;
+end;
+
+
+--exec UpdateGPA
+
+create trigger StudentInsert on Students
+instead of insert
+as
+	begin
+			declare @LevelID int;
+			declare @Class1Cap int;
+			declare @Class1ID int;
+			declare @Class2Cap int;
+			declare @Class2ID int;
+			declare @First varchar(25);
+			declare @Last varchar(25);
+			declare @Gender char(6);
+			declare @DOB date;
+			declare @GPA float;
+
+			select @LevelID = i.Level_ID, @First = i.First_Name, @Last = i.Last_Name, @Gender = i.Gender, @DOB = i.DoB, @GPA = i.GPA 
+			from inserted i;
+			select Top (1)@Class1Cap = Capacity, @Class1ID = Class_ID from Class where Level_ID = @LevelID;
+			select Top (1)@Class2Cap = Capacity, @Class2ID = Class_ID from Class where Level_ID = @LevelID order by Class_ID DESC;
+			if (@Class1Cap < 40)
+			begin
+				insert into Students values (@First, @Last, @Gender, @DOB, @GPA, @LevelID);
+				update Class set Capacity = Capacity + 1 where Class_ID = @Class1ID
+			end
+			else
+				begin
+					if (@Class2Cap < 40)
+					begin
+					insert into Students values (@First, @Last, @Gender, @DOB, @GPA, @LevelID);
+					update Class set Capacity = Capacity + 1 where Class_ID = @Class2ID;
+					end
+			end
+	end;
+		
+
+create trigger StudentDelete on Students
+after delete
+as
+	begin
+			declare @LevelID int;
+			declare @Class2Cap int;
+			declare @Class2ID int;
+			select @LevelID = d.Level_ID from deleted d;
+			select Top (1)@Class2Cap = Capacity, @Class2ID = Class_ID from Class where Level_ID = @LevelID order by Class_ID DESC;
+			if (@Class2Cap > 0)
+			begin
+				update Class set Capacity = Capacity - 1 where Class_ID = @Class2ID
+			end
+			else
+				begin
+					update Class set Capacity = Capacity - 1 where Class_ID <> @Class2ID and Level_ID = @LevelID
+			end
+	end;
+
+
+
+create procedure WorkerUpdate
+as
+	begin
+		update Worker
+		set Salary = Hours_Worked * Hourly_Wage
+	end;
+
+--exec WorkerUpdate
+
+
+
+create trigger AddSubjects on Students
+after insert 
+as
+	begin
+		declare @year int = Year(GETDATE());
+		declare @levelID int;
+		declare @StudentID int;
+		select @levelID = i.Level_ID, @StudentID = i.Student_ID from inserted i;
+		declare @Sub1ID int = (12 * (@LevelID-1)) + 1;
+		declare @Sub2ID int = (12 * (@LevelID-1)) + 2;
+		declare @Sub3ID int = (12 * (@LevelID-1)) + 3;
+		declare @Sub4ID int = (12 * (@LevelID-1)) + 4;
+		declare @Sub5ID int = (12 * (@LevelID-1)) + 5;
+		declare @Sub6ID int = (12 * (@LevelID-1)) + 6;
+		declare @Sub7ID int = (12 * (@LevelID-1)) + 7;
+		declare @Sub8ID int = (12 * (@LevelID-1)) + 8;
+		declare @Sub9ID int = (12 * (@LevelID-1)) + 9;
+		declare @Sub10ID int = (12 * (@LevelID-1)) + 10;
+		declare @Sub11ID int = (12 * (@LevelID-1)) + 11;
+		declare @Sub12ID int = (12 * (@LevelID-1)) + 12;
+		
+
+		insert into Studies (Subject_Year, Subject_Semester, Student_ID, Subject_ID) Values 
+		(@year, 1, @StudentID, @Sub1ID),
+		(@year, 1, @StudentID, @Sub2ID),
+		(@year, 1, @StudentID, @Sub3ID),
+		(@year, 1, @StudentID, @Sub4ID),
+		(@year, 1, @StudentID, @Sub5ID),
+		(@year, 1, @StudentID, @Sub6ID),
+
+		(@year, 2, @StudentID, @Sub7ID),
+		(@year, 2, @StudentID, @Sub8ID),
+		(@year, 2, @StudentID, @Sub9ID),
+		(@year, 2, @StudentID, @Sub10ID),
+		(@year, 2, @StudentID, @Sub11ID),
+		(@year, 2, @StudentID, @Sub12ID);
+	end;
+
+
+create procedure AddGrade
+@StudentID int,
+@LevelID int,
+@Sub1Grade int,
+@Sub2Grade int,
+@Sub3Grade int,
+@Sub4Grade int,
+@Sub5Grade int,
+@Sub6Grade int,
+@Sub7Grade int,
+@Sub8Grade int,
+@Sub9Grade int,
+@Sub10Grade int,
+@Sub11Grade int,
+@Sub12Grade int
+as
+	begin
+		declare @Sub1ID int = (12 * (@LevelID-1)) + 1;
+		declare @Sub2ID int = (12 * (@LevelID-1)) + 2;
+		declare @Sub3ID int = (12 * (@LevelID-1)) + 3;
+		declare @Sub4ID int = (12 * (@LevelID-1)) + 4;
+		declare @Sub5ID int = (12 * (@LevelID-1)) + 5;
+		declare @Sub6ID int = (12 * (@LevelID-1)) + 6;
+		declare @Sub7ID int = (12 * (@LevelID-1)) + 7;
+		declare @Sub8ID int = (12 * (@LevelID-1)) + 8;
+		declare @Sub9ID int = (12 * (@LevelID-1)) + 9;
+		declare @Sub10ID int = (12 * (@LevelID-1)) + 10;
+		declare @Sub11ID int = (12 * (@LevelID-1)) + 11;
+		declare @Sub12ID int = (12 * (@LevelID-1)) + 12;
+		update Studies
+		set Grade = @Sub1Grade where Student_ID = @StudentID and Subject_ID = @Sub1ID;
+		update Studies
+		set Grade = @Sub2Grade where Student_ID = @StudentID and Subject_ID = @Sub2ID;
+		update Studies
+		set Grade = @Sub3Grade where Student_ID = @StudentID and Subject_ID = @Sub3ID;
+		update Studies
+		set Grade = @Sub4Grade where Student_ID = @StudentID and Subject_ID = @Sub4ID;
+		update Studies
+		set Grade = @Sub5Grade where Student_ID = @StudentID and Subject_ID = @Sub5ID;
+		update Studies
+		set Grade = @Sub6Grade where Student_ID = @StudentID and Subject_ID = @Sub6ID;
+		update Studies
+		set Grade = @Sub7Grade where Student_ID = @StudentID and Subject_ID = @Sub7ID;
+		update Studies
+		set Grade = @Sub8Grade where Student_ID = @StudentID and Subject_ID = @Sub8ID;
+		update Studies
+		set Grade = @Sub9Grade where Student_ID = @StudentID and Subject_ID = @Sub9ID;
+		update Studies
+		set Grade = @Sub10Grade where Student_ID = @StudentID and Subject_ID = @Sub10ID;
+		update Studies
+		set Grade = @Sub11Grade where Student_ID = @StudentID and Subject_ID = @Sub11ID;
+		update Studies
+		set Grade = @Sub12Grade where Student_ID = @StudentID and Subject_ID = @Sub12ID;
+	end;
+
+

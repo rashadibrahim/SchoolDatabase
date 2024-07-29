@@ -1,0 +1,211 @@
+use School 
+insert into Levels values
+	(1, 'One'),
+	(2, 'Two'),
+	(3, 'Three'),
+	(4, 'Four'),
+	(5, 'Five'),
+	(6, 'Six');
+
+
+insert into Class values
+	(0, 'Class A1', 0 , 'First Floor, First Room', 1),
+	(1, 'Class A2', 0 , 'First Floor, Second Room', 1),
+	(2, 'Class B1', 0 , 'First Floor, Third Room', 2),
+	(3, 'Class B2', 0 , 'Second Floor, First Room', 2),
+	(4, 'Class C1', 0 , 'Second Floor, Second Room', 3),
+	(5, 'Class C2', 0 , 'Second Floor, Third Room', 3),
+	(6, 'Class D1', 0 , 'Third Floor, First Room', 4),
+	(7, 'Class D2', 0 , 'Third Floor, Second Room', 4),
+	(8, 'Class E1', 0 , 'Third Floor, Third Room', 5),
+	(9, 'Class E2', 0 , 'Fourth Floor, First Room', 5),
+	(10, 'Class F1', 0 , 'Fourth Floor, Second Room', 6),
+	(11, 'Class F2', 0 , 'Fourth Floor, Third Room', 6);
+
+
+
+insert into Subjects values
+	(1, 'Arabic I Pt.1', 150, 1, 1),
+	(2, 'English I Pt.1', 150, 1, 1),
+	(3, 'Math I Pt.1', 150, 1, 1),
+	(4, 'Science I Pt.1', 150, 1, 1),
+	(5, 'Art I Pt.1', 100, 1, 1),
+	(6, 'Computer Basics I Pt.1', 100, 1, 1),
+	(7, 'Arabic I Pt.2', 150, 2, 1),
+	(8, 'English I Pt.2', 150, 2, 1),
+	(9, 'Math I Pt.2', 150, 2, 1),
+	(10, 'Science I Pt.2', 150, 2, 1),
+	(11, 'Art I Pt.2', 100, 2, 1),
+	(12, 'Computer Basics I Pt.2', 100, 2, 1),
+
+	(13, 'Arabic II Pt.1', 150, 1, 2),
+	(14, 'English II Pt.1', 150, 1, 2),
+	(15, 'Math II Pt.1', 150, 1, 2),
+	(16, 'Science II Pt.1', 150, 1, 2),
+	(17, 'Art II Pt.1', 100, 1, 2),
+	(18, 'Computer Basics II Pt.1', 100, 1, 2),
+	(19, 'Arabic II Pt.2', 150, 2, 2),
+	(20, 'English II Pt.2', 150, 2, 2),
+	(21, 'Math II Pt.2', 150, 2, 2),
+	(22, 'Science II Pt.2', 150, 2, 2),
+	(23, 'Art II Pt.2', 100, 2, 2),
+	(24, 'Computer Basics II Pt.2', 100, 2, 2),
+	
+	(25, 'Arabic III Pt.1', 150, 1, 3),
+	(26, 'English III Pt.1', 150, 1, 3),
+	(27, 'Math III Pt.1', 150, 1, 3),
+	(28, 'Science III Pt.1', 150, 1, 3),
+	(29, 'Art III Pt.1', 100, 1, 3),
+	(30, 'Computer Basics III Pt.1', 100, 1, 3),
+	(31, 'Arabic III Pt.2', 150, 2, 3),
+	(32, 'English III Pt.2', 150, 2, 3),
+	(33, 'Math III Pt.2', 150, 2, 3),
+	(34, 'Science III Pt.2', 150, 2, 3),
+	(35, 'Art III Pt.2', 100, 2, 3),
+	(36, 'Computer Basics III Pt.2', 100, 2, 3),
+
+	(37, 'Arabic IV Pt.1', 150, 1, 4),
+	(38, 'English IV Pt.1', 150, 1, 4),
+	(39, 'Math IV Pt.1', 150, 1, 4),
+	(40, 'Science IV Pt.1', 150, 1, 4),
+	(41, 'Art IV Pt.1', 100, 1, 4),
+	(42, 'Computer Basics IV Pt.1', 100, 1, 4),
+	(43, 'Arabic IV Pt.2', 150, 2, 4),
+	(44, 'English IV Pt.2', 150, 2, 4),
+	(45, 'Math IV Pt.2', 150, 2, 4),
+	(46, 'Science IV Pt.2', 150, 2, 4),
+	(47, 'Art IV Pt.2', 100, 2, 4),
+	(48, 'Computer Basics IV Pt.2', 100, 1, 4),
+
+	(49, 'Arabic V Pt.1', 150, 1, 5),
+	(50, 'English V Pt.1', 150, 1, 5),
+	(51, 'Math V Pt.1', 150, 1, 5),
+	(52, 'Science V Pt.1', 150, 1, 5),
+	(53, 'Art V Pt.1', 100, 1, 5),
+	(54, 'Computer Basics V Pt.1', 100, 1, 5),
+	(55, 'Arabic V Pt.2', 150, 2, 5),
+	(56, 'English V Pt.2', 150, 2, 5),
+	(57, 'Math V Pt.2', 150, 2, 5),
+	(58, 'Science V Pt.2', 150, 2, 5),
+	(59, 'Art V Pt.2', 100, 2, 5),
+	(60, 'Computer Basics V Pt.2', 100, 2, 5),
+
+	(61, 'Arabic VI Pt.1', 150, 1, 6),
+	(62, 'English VI Pt.1', 150, 1, 6),
+	(63, 'Math VI Pt.1', 150, 1, 6),
+	(64, 'Science VI Pt.1', 150, 1, 6),
+	(65, 'Art VI Pt.1', 100, 1, 6),
+	(66, 'Computer Basics VI Pt.1', 100, 1, 6),
+	(67, 'Arabic VI Pt.2', 150, 2, 6),
+	(68, 'English VI Pt.2', 150, 2, 6),
+	(69, 'Math VI Pt.2', 150, 2, 6),
+	(70, 'Science VI Pt.2', 150, 2, 6),
+	(71, 'Art VI Pt.2', 100, 2, 6),
+	(72, 'Computer Basics VI Pt.2', 100, 2, 6);
+
+
+insert into Students values ('Ahmed', 'Khaled', 'male', '12/1/2002', 0, 1);
+insert into Students values ('Suzan', 'Mohammed', 'female', '1/1/2001', 0, 2);
+insert into Students values ('Malik', 'Ahmed', 'male', '5/3/2001', 0, 1);
+insert into Students values ('Sara', 'David', 'female', '2/1/2001', 0, 1);
+insert into Students values ('Ebrahim', 'Mahmoud', 'male', '9/7/2001', 0, 2);
+insert into Students values ('Mahmoud', 'Mohamed', 'male', '1/9/2001', 0, 3);
+insert into Students values ('Ahmed', 'Ebrahim', 'male', '1/1/2001', 0, 2);
+insert into Students values ('Salma', 'Khaled', 'female', '1/1/2001', 0, 5);
+insert into Students values ('Nora', 'Ahmed', 'female', '1/1/2001', 0, 6);
+insert into Students values ('Hossam', 'Hossam', 'male', '1/1/2001', 0, 6);
+insert into Students values ('Hisham', 'El Sayed', 'male', '1/1/2001', 0, 5);
+insert into Students values ('Khaled', 'Ahmed', 'male', '1/1/2001', 0, 2);
+insert into Students values ('Belal', 'Monuir', 'male', '1/1/2001', 0, 6);
+
+
+exec AddGrade 1, 1, 140, 120, 130, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 2, 2, 100, 120, 100, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 3, 1, 90, 120, 90, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 4, 1, 99, 120, 90, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 5, 2, 80, 120, 120, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 6, 3, 110, 120, 110, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 7, 2, 111, 120, 99, 99, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 8, 5, 123, 120, 120, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 9, 6, 130, 120, 120, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 10, 6, 140, 111, 110, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 11, 5, 140, 103, 110, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 12, 2, 140, 100, 100, 110, 90, 90, 140, 120, 130, 110, 90, 90
+exec AddGrade 13, 6, 140, 90, 100, 110, 90, 90, 140, 120, 130, 110, 90, 90
+
+exec UpdateGPA --To Update Students GPA
+
+insert into Employee values 
+	(09887989098219, 'Mohab', 'Salim'),
+	(01237989098219, 'Karim', 'Ahmed'),
+	(02287989098219, 'Mohammed', 'Salama'),
+	(09327989098219, 'Reda', 'Asaad'),
+	(09887944098219, 'Atef', 'Esmail'),
+	(09887983498219, 'Ahmed', 'Samir'),
+	(09887989448219, 'Radwa', 'Khaled'),
+	(09887989333219, 'Wafaa', 'El Sayed'),
+	(09887989045219, 'David', 'David'),
+	(09887989096789, 'Mazin', 'Hossam'),
+	(12321312233221, 'Candice', 'Russell'),
+	(02321312233221, 'Jaxson', 'Bell'),
+	(00321312233221, 'Fatma', 'Brandt'),
+	(10321312233221, 'Caspar', 'Ballard'),
+	(19321312233221, 'Mahnoor', 'Odom'),
+	(32321312233221, 'Darragh', 'Kane'),
+	(42321312233221, 'Zuzanna', 'Hurst'),
+	(52321312233221, 'Elliot', 'Mcdonald'),
+	(62321312233221, 'Lily-Mae', 'Lester'),
+	(72321312233221, 'Liberty', 'Cook');
+
+
+
+insert into Parent_Numbers values
+	(01099099089, 1),
+	(01199099089, 1),
+	(01099099089, 2),
+	(01293399089, 3),
+	(01099199089, 3),
+	(01034599089, 3),
+	(01099669089, 4),
+	(01099090089, 4),
+	(01099099009, 5);
+
+
+
+insert into Parking values
+	(4444, 1),
+	(1232, 2),
+	(2312, 5),
+	(1111, 12),
+	(5465, 11),
+	(4567, 19),
+	(7567, 10);
+
+
+insert into Teacher Values 
+(1111,4000,1,1),
+(2222,4000,2,2),
+(3333,4000,3,3),
+(4444,4000,4,4),
+(5555,4000,5,5),
+(6666,4000,6,6),
+(7777,4000,7,11),
+(8888,4000,8,8),
+(9999,4000,9,9),
+(1010,4000,10,10);
+
+
+
+insert into Worker (Hourly_Wage, Hours_Worked, Worker_ID) values
+    (5, 400, 11),
+	(5, 400, 12),
+	(5, 400, 13),
+	(5, 400, 14),
+	(5, 400, 15),
+	(5, 400, 16),
+	(5, 400, 17),
+	(5, 400, 18),
+	(5, 400, 19),
+	(5, 400, 20);
+
+exec WorkerUpdate --To Update Worker Salary
